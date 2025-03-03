@@ -5,11 +5,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 
 @SpringBootTest
-@EmbeddedKafka(topics = "business-details-created", partitions = 1)
-class KafkaTest {
+@EmbeddedKafka(partitions = 1, brokerProperties = { "listeners=PLAINTEXT://localhost:9092", "port=9092" })
+public class KafkaTest {
 
     @Test
     void contextLoads() {
-        // This test method can be empty
     }
+
 }
