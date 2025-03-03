@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class BusinessDetailsService {
@@ -18,7 +17,7 @@ public class BusinessDetailsService {
         return businessDetailsRepository.findAll();
     }
 
-    public Optional<BusinessDetails> getBusinessDetailsById(UUID id) {
+    public Optional<BusinessDetails> getBusinessDetailsById(Long id) {
         return businessDetailsRepository.findById(id);
     }
 
@@ -30,7 +29,7 @@ public class BusinessDetailsService {
         return businessDetailsRepository.save(businessDetails);
     }
 
-    public boolean deleteBusinessDetails(UUID id) {
+    public boolean deleteBusinessDetails(Long id) {
         if (businessDetailsRepository.existsById(id)) {
             businessDetailsRepository.deleteById(id);
             return true;

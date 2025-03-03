@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Edit Business Details</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Edit Business Details</h1>
+
+<form id="businessDetailsForm">
+    <input type="hidden" id="id" name="id">
+    Name: <input type="text" id="name" name="name"><br><br>
+    Address: <input type="text" id="address" name="address"><br><br>
+    Contact Details: <input type="text" id="contactDetails" name="contactDetails"><br><br>
+    Industry: <input type="text" id="industry" name="industry"><br><br>
+    Phone Number: <input type="text" id="phoneNumber" name="phoneNumber"><br><br>
+    Financial Information: <input type="text" id="financialInformation" name="financialInformation"><br><br>
+    Email Address: <input type="text" id="emailAddress" name="emailAddress"><br><br>
+    <button type="submit">Save</button>
+</form>
+
+<script>
+    const form = document.getElementById('businessDetailsForm');
+    const urlParams = new URLSearchParams(window.location.search);
+    const businessId = urlParams.get('id');
+
+    if (businessId) {
+        // Edit existing
+        fetch(`/api/business-details/${businessId}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('id').value = data.id;
+                    document.getElementById('name').value = data.name;
+                    document.getElementById('address').value = data.address;
+                    document.getElementById('contactDetails').value = data.contactDetails;
+                    document.getElementById('industry').value = data.industry;
+                    document.getElementById('phoneNumber').value = data.phoneNumber;
+                    document.getElementById('financialInformation').value = data.financialInformation;
+                    document.getElementById('emailAddress').value = data.emailAddress;
+                });
+    }
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const formData = {
+            id: document.getElementById('id').value,
+            name: document.getElementById('name').value,
+            address: document.getElementById('address').value,
+            contactDetails: document.getElementById('contactDetails').value,
+            industry: document.getElementById('industry').value,
+            phoneNumber: document.getElementById('phoneNumber').value,
+            financialInformation: document.getElementById('financialInformation').value,
+            emailAddress: document.getElementById('emailAddress').value
+        };
+
+        const method = businessId ? 'PUT' : 'POST';
+        const url = businessId ? `/api/business-details/${businessId}` : '/api/business-details';
+
+        fetch(url, {
+            method: method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = 'index.html'; // Redirect to index.html
+            } else {
+                // Handle errors
+                console.error('Error saving business details');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
