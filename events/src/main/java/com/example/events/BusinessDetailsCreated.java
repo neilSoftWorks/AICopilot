@@ -1,4 +1,4 @@
 package com.example.events;
 
-public record BusinessDetailsCreated(String id, String name, String address) {
+public record BusinessDetailsCreated(Long id, String name, String address) {
 }

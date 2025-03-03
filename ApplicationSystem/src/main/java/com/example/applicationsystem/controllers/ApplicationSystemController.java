@@ -10,7 +10,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/business-details")
@@ -27,20 +27,18 @@ public class ApplicationSystemController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BusinessDetails> getBusinessDetailsById(@PathVariable("id") UUID id) {
-        return businessDetailsService.getBusinessDetailsById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<BusinessDetails> getBusinessDetailsById(@PathVariable("id") Long id) {
+        Optional<BusinessDetails> businessDetails = businessDetailsService.getBusinessDetailsById(id);
+        return businessDetails.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public ResponseEntity<BusinessDetails> createBusinessDetails(@RequestBody BusinessDetails businessDetails) {
-        businessDetails.setId(UUID.randomUUID());
         BusinessDetails createdBusinessDetails = businessDetailsService.createBusinessDetails(businessDetails);
 
         // Publish the event to Kafka
         BusinessDetailsCreated event = new BusinessDetailsCreated(
-                createdBusinessDetails.getId().toString(),
+                createdBusinessDetails.getId(),
                 createdBusinessDetails.getName(),
                 createdBusinessDetails.getAddress()
         );
@@ -50,17 +48,18 @@ public class ApplicationSystemController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BusinessDetails> updateBusinessDetails(@PathVariable("id") UUID id, @RequestBody BusinessDetails businessDetails) {
-        return businessDetailsService.getBusinessDetailsById(id)
-                .map(existingBusinessDetails -> {
-                    businessDetails.setId(id);
-                    return ResponseEntity.ok(businessDetailsService.updateBusinessDetails(businessDetails));
-                })
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<BusinessDetails> updateBusinessDetails(@PathVariable("id") Long id, @RequestBody BusinessDetails businessDetails) {
+        Optional<BusinessDetails> existingBusinessDetails = businessDetailsService.getBusinessDetailsById(id);
+        if (existingBusinessDetails.isPresent()) {
+            businessDetails.setId(id);
+            return ResponseEntity.ok(businessDetailsService.updateBusinessDetails(businessDetails));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBusinessDetails(@PathVariable("id") UUID id) {
+    public ResponseEntity<Void> deleteBusinessDetails(@PathVariable("id") Long id) {
         if (businessDetailsService.deleteBusinessDetails(id)) {
             return ResponseEntity.noContent().build();
         } else {
