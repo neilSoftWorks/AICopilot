@@ -1,7 +1,7 @@
 package com.example.applicationsystem.controllers;
 
-import com.example.models.BusinessDetails; // Correct import
-import com.example.service.ApplicationService;
+import com.example.applicationsystem.models.BusinessDetails;
+import com.example.applicationsystem.services.BusinessDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,26 +12,26 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/applications")
 @CrossOrigin(origins = "*")
-public class ApplicationSystemController { // Correct class name
+public class ApplicationSystemController {
 
     @Autowired
-    private ApplicationService applicationService;
+    private BusinessDetailsService businessDetailsService;
 
     @PostMapping
     public ResponseEntity<BusinessDetails> submitApplication(@RequestBody BusinessDetails businessDetails) {
-        BusinessDetails savedBusinessDetails = applicationService.submitApplication(businessDetails);
+        BusinessDetails savedBusinessDetails = businessDetailsService.submitApplication(businessDetails);
         return new ResponseEntity<>(savedBusinessDetails, HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<BusinessDetails>> getAllBusinessDetails() {
-        List<BusinessDetails> businessDetailsList = applicationService.getAllBusinessDetails();
+        List<BusinessDetails> businessDetailsList = businessDetailsService.getAllBusinessDetails();
         return new ResponseEntity<>(businessDetailsList, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<BusinessDetails> getBusinessDetailsById(@PathVariable Long id) {
-        BusinessDetails businessDetails = applicationService.getBusinessDetailsById(id);
+        BusinessDetails businessDetails = businessDetailsService.getBusinessDetailsById(id);
         if (businessDetails != null) {
             return new ResponseEntity<>(businessDetails, HttpStatus.OK);
         } else {
@@ -41,7 +41,7 @@ public class ApplicationSystemController { // Correct class name
 
     @PutMapping("/{id}")
     public ResponseEntity<BusinessDetails> updateBusinessDetails(@PathVariable Long id, @RequestBody BusinessDetails businessDetails) {
-        BusinessDetails updatedBusinessDetails = applicationService.updateBusinessDetails(id, businessDetails);
+        BusinessDetails updatedBusinessDetails = businessDetailsService.updateBusinessDetails(id, businessDetails);
         if (updatedBusinessDetails != null) {
             return new ResponseEntity<>(updatedBusinessDetails, HttpStatus.OK);
         } else {
@@ -51,7 +51,7 @@ public class ApplicationSystemController { // Correct class name
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBusinessDetails(@PathVariable Long id) {
-        applicationService.deleteBusinessDetails(id);
+        businessDetailsService.deleteBusinessDetails(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
