@@ -1,41 +1,35 @@
 package com.example.applicationsystem.models;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.sql.Timestamp;
 
 @Entity
+@Table(name = "application_status")
+@Data
 public class ApplicationStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "business_details_id")
-    private BusinessDetails businessDetails;
-
     private String status;
 
-    public Long getId() {
-        return id;
-    }
+    @Column(name = "created_at")
+    private Timestamp createdAt;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @Column(name = "business_id")
+    private Long businessId;
 
-    public BusinessDetails getBusinessDetails() {
-        return businessDetails;
-    }
+    @Column(name = "status_name")
+    private String statusName;
 
-    public void setBusinessDetails(BusinessDetails businessDetails) {
-        this.businessDetails = businessDetails;
-    }
+    @ManyToOne
+    @JoinColumn(name = "business_details_id")
+    @JsonIgnore // Add this annotation to break the circular reference
+    private BusinessDetails businessDetails;
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    // Constructors, getters, and setters (using Lombok's @Data)
 }
