@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BusinessDetailsService {
@@ -17,7 +16,7 @@ public class BusinessDetailsService {
         return businessDetailsRepository.findAll();
     }
 
-    public Optional<BusinessDetails> getBusinessDetailsById(Long id) {
+    public BusinessDetails getBusinessDetailsById(Long id) {
         return businessDetailsRepository.findById(id);
     }
 
@@ -25,7 +24,7 @@ public class BusinessDetailsService {
         return businessDetailsRepository.save(businessDetails);
     }
 
-    public BusinessDetails updateBusinessDetails(BusinessDetails businessDetails) {
+    public BusinessDetails updateBusinessDetails(Long id, BusinessDetails businessDetails) {
         return businessDetailsRepository.save(businessDetails);
     }
 

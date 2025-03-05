@@ -1,36 +1,39 @@
 package com.example.applicationsystem.models;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.Data;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
-@Data
 public class BusinessDetails {
+ 
+ @Id
+ @GeneratedValue(strategy = GenerationType.IDENTITY)
+ private Long id;
+ 
+ @NotBlank
+ private String businessName;
+ 
+ @NotBlank
+ private String registrationNumber;
+ 
+ @NotBlank
+ private String businessType;
+ 
+ public BusinessDetails() {}
 
-    @Id
-    @Column(name = "ID")
-    private Long id;
-
-    @Column(name = "NAME")
-    private String name;
-
-    @Column(name = "CONTACT_DETAILS")
-    private String contactDetails;
-
-    @Column(name = "ADDRESS")
-    private String address;
-
-    @Column(name = "INDUSTRY")
-    private String industry;
-
-    @Column(name = "PHONE_NUMBER")
-    private String phoneNumber;
-
-    @Column(name = "FINANCIAL_INFORMATION")
-    private String financialInformation;
-
-    @Column(name = "EMAIL_ADDRESS")
-    private String emailAddress;
+ // Getters and Setters
+ public Long getId() { return id; }
+ public void setId(Long id) { this.id = id; }
+ 
+ public String getBusinessName() { return businessName; }
+ public void setBusinessName(String businessName) { this.businessName = businessName; }
+ 
+ public String getRegistrationNumber() { return registrationNumber; }
+ public void setRegistrationNumber(String registrationNumber) { this.registrationNumber = registrationNumber; }
+ 
+ public String getBusinessType() { return businessType; }
+ public void setBusinessType(String businessType) { this.businessType = businessType; }
 }

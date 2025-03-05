@@ -19,7 +19,7 @@ public class ApplicationSystemController {
 
     @PostMapping
     public ResponseEntity<BusinessDetails> submitApplication(@RequestBody BusinessDetails businessDetails) {
-        BusinessDetails savedBusinessDetails = businessDetailsService.submitApplication(businessDetails);
+        BusinessDetails savedBusinessDetails = businessDetailsService.createBusinessDetails(businessDetails);
         return new ResponseEntity<>(savedBusinessDetails, HttpStatus.CREATED);
     }
 
