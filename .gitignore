@@ -1,6 +1,6 @@
 # Default ignored files
 /shelf/
-/workspace.xml
+/.idea/workspace.xml
 # Compiled Java class files
 *.class
 
@@ -10,3 +10,11 @@
 
 # Maven target directory
 /target/
+
+*.lst
+
+/target/classes
+
+SystemApp/target/classes
+ApplicationSystem/target/classes
+events/target
