@@ -1,19 +1,19 @@
 package com.example.applicationsystem;
 
-import com.example.events.Event;
-import com.example.events.EventHandler;
+import com.example.shared.SharedEventDetails; // Import from Shared module
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EventConsumer {
 
-    private final EventHandler eventHandler;
+    private static final Logger logger = LoggerFactory.getLogger(EventConsumer.class);
 
-    public EventConsumer(EventHandler eventHandler) {
-        this.eventHandler = eventHandler;
-    }
-
-    public void receive(Event event) {
-        eventHandler.handle(event);
+    @KafkaListener(topics = "events-topic", groupId = "application-system-group")
+    public void consumeEvent(SharedEventDetails eventDetails) {
+        logger.info("Received event from Events module: {}", eventDetails);
+        // Process the event data
     }
 }

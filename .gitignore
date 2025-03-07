@@ -18,3 +18,5 @@
 SystemApp/target/classes
 ApplicationSystem/target/classes
 events/target
+target/maven-archiver
+shared/target

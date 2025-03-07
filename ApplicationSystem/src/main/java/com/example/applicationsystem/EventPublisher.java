@@ -1,19 +1,22 @@
 package com.example.applicationsystem;
 
-import com.example.events.Event;
-import com.example.events.EventHandler;
+import com.example.shared.SharedEventDetails; // Import from Shared module
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EventPublisher {
 
-    private final EventHandler eventHandler;
+    private static final Logger logger = LoggerFactory.getLogger(EventPublisher.class);
 
-    public EventPublisher(EventHandler eventHandler) {
-        this.eventHandler = eventHandler;
-    }
+    @Autowired
+    private KafkaTemplate<String, SharedEventDetails> kafkaTemplate;
 
-    public void publish(Event event) {
-        event.send();
+    public void publishEvent(SharedEventDetails eventDetails) {
+        kafkaTemplate.send("events-topic", eventDetails);
+        logger.info("Published event to Events module: {}", eventDetails);
     }
 }
