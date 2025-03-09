@@ -21,3 +21,4 @@ events/target
 target/maven-archiver
 shared/target
 ApplicationSystem/target/classes/*.properties
+maven-archiver
