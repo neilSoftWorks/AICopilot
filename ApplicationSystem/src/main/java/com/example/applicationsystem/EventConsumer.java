@@ -11,7 +11,7 @@ public class EventConsumer {
 
     private static final Logger logger = LoggerFactory.getLogger(EventConsumer.class);
 
-    @KafkaListener(topics = "events-topic", groupId = "application-system-group")
+    @KafkaListener(topics = "test-topic", groupId = "application-system-group")
     public void consumeEvent(SharedEventDetails eventDetails) {
         logger.info("Received event from Events module: {}", eventDetails);
         // Process the event data

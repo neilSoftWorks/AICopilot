@@ -20,7 +20,7 @@ public class EventPublisher {
     }
 
     public void publishEvent(SharedEventDetails eventDetails) {
-       kafkaTemplate.send("events-topic", eventDetails);
+       kafkaTemplate.send("test-topic", eventDetails);
         logger.info("Published event to Events module: {}", eventDetails);
     }
 }
