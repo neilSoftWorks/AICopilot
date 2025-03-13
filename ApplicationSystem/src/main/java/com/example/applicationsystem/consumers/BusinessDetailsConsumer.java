@@ -1,14 +1,14 @@
 package com.example.applicationsystem.consumers;
 
 import com.example.shared.SharedEventDetails;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.beans.factory.annotation.Autowired; // Add this import
 import org.springframework.kafka.core.ConsumerFactory;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.serializer.JsonDeserializer; // Add this import
 import org.springframework.stereotype.Component;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 @Component
 public class BusinessDetailsConsumer {
@@ -16,9 +16,8 @@ public class BusinessDetailsConsumer {
     private static final Logger logger = LoggerFactory.getLogger(BusinessDetailsConsumer.class);
     private final ConsumerFactory<String, SharedEventDetails> consumerFactory;
 
-    @Autowired
-    public BusinessDetailsConsumer(
-            @Qualifier("consumerFactory") ConsumerFactory<String, SharedEventDetails> consumerFactory) {
+    @Autowired // Add this annotation
+    public BusinessDetailsConsumer(ConsumerFactory<String, SharedEventDetails> consumerFactory) { // Removed @Qualifier
         this.consumerFactory = consumerFactory;
     }
 

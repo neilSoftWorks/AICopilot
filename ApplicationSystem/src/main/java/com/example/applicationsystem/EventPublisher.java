@@ -12,11 +12,15 @@ public class EventPublisher {
 
     private static final Logger logger = LoggerFactory.getLogger(EventPublisher.class);
 
-    @Autowired
-    private KafkaTemplate<String, SharedEventDetails> kafkaTemplate;
+    private final KafkaTemplate<String, SharedEventDetails> kafkaTemplate;
+
+    @Autowired // Add this annotation
+    public EventPublisher(KafkaTemplate<String, SharedEventDetails> kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
+    }
 
     public void publishEvent(SharedEventDetails eventDetails) {
-        kafkaTemplate.send("events-topic", eventDetails);
+       kafkaTemplate.send("events-topic", eventDetails);
         logger.info("Published event to Events module: {}", eventDetails);
     }
 }
