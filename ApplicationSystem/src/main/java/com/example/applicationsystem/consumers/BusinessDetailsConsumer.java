@@ -21,7 +21,8 @@ public class BusinessDetailsConsumer {
         this.consumerFactory = consumerFactory;
     }
 
-    @KafkaListener(topics = "test-topic", groupId = "business-details-group", containerFactory = "kafkaListenerContainerFactory")
+    //@KafkaListener(topics = "test-topic", groupId = "business-details-group", containerFactory = "kafkaListenerContainerFactory")
+    @KafkaListener(topics = "test-topic", groupId = "business-details-group")
     public void consumeEvent(ConsumerRecord<String, SharedEventDetails> record) {
         SharedEventDetails eventDetails = record.value();
         logger.info("Received event from Events module: {}", eventDetails);
