@@ -3,10 +3,7 @@ package com.example.applicationsystem.consumers;
 import com.example.shared.SharedEventDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired; // Add this import
-import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.support.serializer.JsonDeserializer; // Add this import
 import org.springframework.stereotype.Component;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
@@ -14,15 +11,8 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 public class BusinessDetailsConsumer {
 
     private static final Logger logger = LoggerFactory.getLogger(BusinessDetailsConsumer.class);
-    private final ConsumerFactory<String, SharedEventDetails> consumerFactory;
 
-    @Autowired // Add this annotation
-    public BusinessDetailsConsumer(ConsumerFactory<String, SharedEventDetails> consumerFactory) { // Removed @Qualifier
-        this.consumerFactory = consumerFactory;
-    }
-
-    //@KafkaListener(topics = "test-topic", groupId = "business-details-group", containerFactory = "kafkaListenerContainerFactory")
-    @KafkaListener(topics = "test-topic", groupId = "business-details-group")
+    @KafkaListener(topics = "test-topic", groupId = "business-details-group", containerFactory = "kafkaListenerContainerFactory")
     public void consumeEvent(ConsumerRecord<String, SharedEventDetails> record) {
         SharedEventDetails eventDetails = record.value();
         logger.info("Received event from Events module: {}", eventDetails);
