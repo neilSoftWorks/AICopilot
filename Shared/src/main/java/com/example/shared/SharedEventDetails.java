@@ -8,5 +8,11 @@ public class SharedEventDetails {
     private String title;
     private String date;
     private String location;
-    // Add other relevant fields
+    private String businessName;
+    private String contactNumber;
+    private String email;
+    private String ownerName;
+    private String businessType;
+    private String registrationNumber;
+    private Long applicationStatusId;
 }

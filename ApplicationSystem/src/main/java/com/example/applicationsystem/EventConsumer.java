@@ -15,5 +15,6 @@ public class EventConsumer {
     public void consumeEvent(SharedEventDetails eventDetails) {
         logger.info("Received event from Events module: {}", eventDetails);
         // Process the event data
+        System.out.println("Business Name: " + eventDetails.getBusinessName());
     }
 }
