@@ -34,4 +34,11 @@ public class ApplicationController {
     public SharedEventDetails getApplication(@PathVariable Long id) {
         return applicationService.getApplicationById(id);
     }
+
+    @PutMapping("/{id}") // Add this mapping
+    @ResponseBody
+    public SharedEventDetails updateApplication(@PathVariable Long id, @RequestBody SharedEventDetails updatedApplication) {
+        logger.info("Received Update Request: {}", id);
+        return applicationService.updateApplication(id, updatedApplication);
+    }
 }
