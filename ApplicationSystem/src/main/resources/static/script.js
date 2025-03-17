@@ -1,4 +1,4 @@
-fetch('/applications')
+fetch('/api/applications')
     .then(response => response.json())
     .then(data => {
         const tableBody = document.querySelector('#applicationTable tbody');
