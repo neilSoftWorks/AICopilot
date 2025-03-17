@@ -1,31 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Application List</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Applications</title>
+    <style>
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-bottom: 20px;
+        }
+
+        th, td {
+          border: 1px solid #ddd;
+          padding: 8px;
+          text-align: left;
+        }
+
+        th {
+          background-color: #f2f2f2;
+        }
+
+        .button-container {
+          margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Application List</h1>
-        <table class="table" id="applicationTable">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Contact Details</th>
-                    <th>Address</th>
-                    <th>Industry</th>
-                    <th>Phone Number</th>
-                    <th>Financial Information</th>
-                    <th>Email Address</th>
-                    <th>Application Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                </tbody>
-        </table>
-    </div>
-    <script src="script.js"></script>
+<h1>Applications</h1>
+<div class="button-container">
+    <button id="createButton">Create New Application</button>
+</div>
+<table id="applicationsTable">
+    <thead>
+    <tr>
+        <th>Business Name</th>
+        <th>Address</th>
+        <th>Trading Name</th>
+        <th>Status</th>
+        <th>Status Name</th>
+        <th>Created At</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<script src="script.js"></script>
 </body>
 </html>

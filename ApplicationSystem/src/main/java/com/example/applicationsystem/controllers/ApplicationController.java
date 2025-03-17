@@ -5,12 +5,14 @@ import com.example.shared.SharedEventDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.List;
 
 @Controller
 @RequestMapping("/api/applications")
 public class ApplicationController {
+    private static final Logger logger = LoggerFactory.getLogger(ApplicationController.class);
 
     @Autowired
     private ApplicationService applicationService;
@@ -21,9 +23,10 @@ public class ApplicationController {
         return applicationService.getAllApplications();
     }
 
-    @GetMapping("/edit/{id}")
-    public void editApplication(@PathVariable Long id) {
-
+    @GetMapping("/api/applications/edit/{id}")
+    public String editApplication(@PathVariable Long id) {
+        logger.info("Received Edit Request: {}", id);
+        return "test"; // Return the view name
     }
 
     @GetMapping("/{id}")
