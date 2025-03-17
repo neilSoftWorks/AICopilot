@@ -2,10 +2,12 @@ package com.example.applicationsystem.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
 
-@Data
 @Entity
+@Table(name = "business_details")
+@Data
 public class BusinessDetails {
     @Id
     private Long id;

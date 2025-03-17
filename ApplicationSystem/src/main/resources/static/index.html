@@ -2,50 +2,30 @@
 <html>
 <head>
     <title>Application List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Application List</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Business Name</th>
-                <th>Contact Number</th>
-                <th>Email</th>
-                <th>Owner Name</th>
-                <th>Business Type</th>
-                <th>Registration Number</th>
-                <th>Application Status Id</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody id="applicationTableBody">
-            
-        </tbody>
-    </table>
-    <script>
-        fetch('/api/applications')
-            .then(response => response.json())
-            .then(data => {
-                const tableBody = document.getElementById('applicationTableBody');
-                data.forEach(application => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${application.id}</td>
-                        <td>${application.title}</td>
-                        <td>${application.businessName}</td>
-                        <td>${application.contactNumber}</td>
-                        <td>${application.email}</td>
-                        <td>${application.ownerName}</td>
-                        <td>${application.businessType}</td>
-                        <td>${application.registrationNumber}</td>
-                        <td>${application.applicationStatusId}</td>
-                        <td><a href="/edit.html?id=${application.id}">Edit</a></td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-            });
-    </script>
+    <div class="container">
+        <h1>Application List</h1>
+        <table class="table" id="applicationTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Contact Details</th>
+                    <th>Address</th>
+                    <th>Industry</th>
+                    <th>Phone Number</th>
+                    <th>Financial Information</th>
+                    <th>Email Address</th>
+                    <th>Application Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                </tbody>
+        </table>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
