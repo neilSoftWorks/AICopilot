@@ -24,12 +24,13 @@ public class ApplicationService {
         for (BusinessDetails businessDetails : businessDetailsList) {
             SharedEventDetails sharedEventDetails = new SharedEventDetails();
             sharedEventDetails.setId(businessDetails.getId());
-            sharedEventDetails.setBusinessName(businessDetails.getBusinessName());
-            sharedEventDetails.setContactNumber(businessDetails.getContactNumber());
-            sharedEventDetails.setEmail(businessDetails.getEmail());
-            sharedEventDetails.setOwnerName(businessDetails.getOwnerName());
-            sharedEventDetails.setBusinessType(businessDetails.getBusinessType());
-            sharedEventDetails.setRegistrationNumber(businessDetails.getRegistrationNumber());
+            sharedEventDetails.setName(businessDetails.getName());
+            sharedEventDetails.setContactDetails(businessDetails.getContactDetails());
+            sharedEventDetails.setAddress(businessDetails.getAddress());
+            sharedEventDetails.setIndustry(businessDetails.getIndustry());
+            sharedEventDetails.setPhoneNumber(businessDetails.getPhoneNumber());
+            sharedEventDetails.setFinancialInformation(businessDetails.getFinancialInformation());
+            sharedEventDetails.setEmailAddress(businessDetails.getEmailAddress());
             ApplicationStatus latestStatus = applicationStatusService.getLatestApplicationStatus(businessDetails.getId());
             if (latestStatus != null) {
                 sharedEventDetails.setApplicationStatusId(latestStatus.getId());

@@ -9,11 +9,12 @@ import lombok.Data;
 public class BusinessDetails {
     @Id
     private Long id;
-    private String businessName;
-    private String contactNumber;
-    private String email;
-    private String ownerName;
-    private String businessType;
-    private String registrationNumber;
-    private Long applicationStatusId;
+    private String name;
+    private String contactDetails;
+    private String address;
+    private String industry;
+    private String phoneNumber;
+    private String financialInformation;
+    private String emailAddress;
+    // ... other fields and methods ...
 }
