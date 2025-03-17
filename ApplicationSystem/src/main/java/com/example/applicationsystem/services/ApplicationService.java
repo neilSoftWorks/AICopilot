@@ -31,6 +31,13 @@ public class ApplicationService {
             sharedEventDetails.setPhoneNumber(businessDetails.getPhoneNumber());
             sharedEventDetails.setFinancialInformation(businessDetails.getFinancialInformation());
             sharedEventDetails.setEmailAddress(businessDetails.getEmailAddress());
+            sharedEventDetails.setApplicationStatusId(businessDetails.getApplicationStatusId());
+            sharedEventDetails.setBusinessName(businessDetails.getBusinessName());
+            sharedEventDetails.setContactNumber(businessDetails.getContactNumber());
+            sharedEventDetails.setEmail(businessDetails.getEmail());
+            sharedEventDetails.setOwnerName(businessDetails.getOwnerName());
+            sharedEventDetails.setBusinessType(businessDetails.getBusinessType());
+            sharedEventDetails.setRegistrationNumber(businessDetails.getRegistrationNumber());
             ApplicationStatus latestStatus = applicationStatusService.getLatestApplicationStatus(businessDetails.getId());
             if (latestStatus != null) {
                 sharedEventDetails.setApplicationStatusId(latestStatus.getId());

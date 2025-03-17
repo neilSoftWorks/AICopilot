@@ -1,13 +1,9 @@
-package com.example.applicationsystem.models;
+package com.example.shared;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import lombok.Data;
 
 @Data
-@Entity
-public class BusinessDetails {
-    @Id
+public class SharedEventDetails {
     private Long id;
     private String name;
     private String contactDetails;
