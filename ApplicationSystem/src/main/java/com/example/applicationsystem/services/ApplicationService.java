@@ -1,11 +1,14 @@
 package com.example.applicationsystem.services;
 
 import com.example.applicationsystem.models.BusinessDetails;
-import com.example.applicationsystem.repository.ApplicationStatusRepository;
 import com.example.applicationsystem.repository.BusinessDetailsRepository;
 import com.example.shared.SharedEventDetails;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +16,13 @@ import java.util.List;
 @Service
 public class ApplicationService {
 
+    private static final Logger logger = LoggerFactory.getLogger(ApplicationService.class);
+
     @Autowired
     private BusinessDetailsRepository businessDetailsRepository;
+
+    @Autowired
+    private KafkaTemplate<String, SharedEventDetails> kafkaTemplate;
 
     public SharedEventDetails getApplicationById(Long id) {
         BusinessDetails businessDetails = businessDetailsRepository.findById(id).orElse(null);
@@ -65,6 +73,7 @@ public class ApplicationService {
         return sharedEventDetailsList;
     }
 
+    @Transactional
     public SharedEventDetails updateApplication(Long id, SharedEventDetails updatedApplication) {
         BusinessDetails existingApplication = businessDetailsRepository.findById(id).orElse(null);
         if (existingApplication != null) {
@@ -83,9 +92,20 @@ public class ApplicationService {
             existingApplication.setBusinessType(updatedApplication.getBusinessType());
             existingApplication.setRegistrationNumber(updatedApplication.getRegistrationNumber());
             BusinessDetails savedApplication = businessDetailsRepository.save(existingApplication);
-            return convertToSharedEventDetails(savedApplication);
+            SharedEventDetails sharedEventDetails = convertToSharedEventDetails(savedApplication);
+            sendApplicationUpdateEvent("application-updates", sharedEventDetails); // Pass the topic
+            return sharedEventDetails;
         }
         return null;
+    }
+
+    private void sendApplicationUpdateEvent(String topic, SharedEventDetails sharedEventDetails) {
+        try {
+            kafkaTemplate.send(topic, sharedEventDetails); // Use the topic parameter
+            logger.info("Kafka event sent to topic '{}' for application ID: {}", topic, sharedEventDetails.getId());
+        } catch (Exception e) {
+            logger.error("Error sending Kafka event: {}", e.getMessage());
+        }
     }
 
     private SharedEventDetails convertToSharedEventDetails(BusinessDetails businessDetails) {

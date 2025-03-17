@@ -2,87 +2,71 @@
 <html>
 <head>
     <title>Edit Application</title>
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+        }
+
+        label {
+            margin-top: 10px;
+        }
+
+        input, textarea, select {
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h1>Edit Application</h1>
+<h1>Edit Application</h1>
+<form id="editForm">
+    <label for="businessName">Business Name:</label>
+    <input type="text" id="businessName" name="businessName">
 
-    <form id="editForm">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name"><br>
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address">
 
-        <label for="contactDetails">Contact Details:</label>
-        <input type="text" id="contactDetails" name="contactDetails"><br>
+    <label for="tradingName">Trading Name:</label>
+    <input type="text" id="tradingName" name="tradingName">
 
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="address"><br>
+    <label for="contactDetails">Contact Details:</label>
+    <input type="text" id="contactDetails" name="contactDetails">
 
-        <label for="industry">Industry:</label>
-        <input type="text" id="industry" name="industry"><br>
+    <label for="phoneNumber">Phone Number:</label>
+    <input type="text" id="phoneNumber" name="phoneNumber">
 
-        <label for="phoneNumber">Phone Number:</label>
-        <input type="text" id="phoneNumber" name="phoneNumber"><br>
+    <label for="emailAddress">Email Address:</label>
+    <input type="email" id="emailAddress" name="emailAddress">
 
-        <label for="financialInformation">Financial Information:</label>
-        <input type="text" id="financialInformation" name="financialInformation"><br>
+    <label for="industry">Industry:</label>
+    <input type="text" id="industry" name="industry">
 
-        <label for="emailAddress">Email Address:</label>
-        <input type="text" id="emailAddress" name="emailAddress"><br>
+    <label for="financialInformation">Financial Information:</label>
+    <textarea id="financialInformation" name="financialInformation"></textarea>
 
-        <label for="applicationStatusId">Application Status ID:</label>
-        <input type="number" id="applicationStatusId" name="applicationStatusId"><br>
+    <label for="status">Status:</label>
+    <input type="text" id="status" name="status">
 
-        <label for="tradingName">Trading Name:</label>
-        <input type="text" id="tradingName" name="tradingName"><br>
+    <label for="statusName">Status Name:</label>
+    <input type="text" id="statusName" name="statusName">
 
-        <button type="button" onclick="saveApplication()">Save</button>
-    </form>
+    <label for="createdAt">Created At:</label>
+    <input type="datetime-local" id="createdAt" name="createdAt">
 
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const id = urlParams.get('id');
+    <button type="submit">Save Changes</button>
+</form>
 
-        fetch(`/api/applications/${id}`)
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('name').value = data.name;
-                document.getElementById('contactDetails').value = data.contactDetails;
-                document.getElementById('address').value = data.address;
-                document.getElementById('industry').value = data.industry;
-                document.getElementById('phoneNumber').value = data.phoneNumber;
-                document.getElementById('financialInformation').value = data.financialInformation;
-                document.getElementById('emailAddress').value = data.emailAddress;
-                document.getElementById('applicationStatusId').value = data.applicationStatusId;
-                document.getElementById('tradingName').value = data.tradingName;
-            });
-
-        function saveApplication() {
-            const formData = {
-                name: document.getElementById('name').value,
-                contactDetails: document.getElementById('contactDetails').value,
-                address: document.getElementById('address').value,
-                industry: document.getElementById('industry').value,
-                phoneNumber: document.getElementById('phoneNumber').value,
-                financialInformation: document.getElementById('financialInformation').value,
-                emailAddress: document.getElementById('emailAddress').value,
-                applicationStatusId: document.getElementById('applicationStatusId').value,
-                tradingName: document.getElementById('tradingName').value
-            };
-
-            fetch(`/api/applications/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            })
-            .then(response => {
-                if (response.ok) {
-                    window.location.href = '/';
-                } else {
-                    alert('Error saving data.');
-                }
-            });
-        }
-    </script>
+<script src="edit.js"></script>
 </body>
 </html>
