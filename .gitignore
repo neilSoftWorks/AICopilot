@@ -9,9 +9,11 @@
 *.iml
 
 # Maven target directory
+# Maven target
 /target/
-
 *.lst
+*.log
+*.swp
 
 /target/classes
 
