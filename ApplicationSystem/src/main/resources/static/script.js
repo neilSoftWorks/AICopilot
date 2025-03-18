@@ -13,16 +13,17 @@ fetch('/api/applications')
             const row = tableBody.insertRow();
 
             // Business details
-            const businessNameCell = row.insertCell();
+            const nameCell = row.insertCell();
             const addressCell = row.insertCell();
-            const tradingNameCell = row.insertCell();
+            const contactDetailsCell = row.insertCell();
+            const industryCell = row.insertCell();
 
-            businessNameCell.textContent = businessDetails.name || '';
+            nameCell.textContent = businessDetails.name || '';
             addressCell.textContent = businessDetails.address || '';
-            tradingNameCell.textContent = businessDetails.tradingName || '';
+            contactDetailsCell.textContent = businessDetails.contactDetails || '';
+            industryCell.textContent = businessDetails.industry || '';
 
             // Application status
-            const statusCell = row.insertCell();
             const statusNameCell = row.insertCell();
             const createdAtCell = row.insertCell();
 
